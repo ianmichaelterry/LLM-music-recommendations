@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-from openai import OpenAI
 import llm_music_utils
 
 st.title("LLM Music Recommendations")

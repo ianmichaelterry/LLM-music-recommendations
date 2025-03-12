@@ -11,8 +11,17 @@ A Streamlit app to generate musical artist recommendations using LLM APIs
    ```
    $ pip install -r requirements.txt
    ```
+2. Create the secrets file
 
-2. Run the app
+   ```
+   $ touch LLM-music-recommendations/.streamlit/secrets.toml
+   ```
+3. Add OpenAI key to secrets.toml
+   
+   ```
+   openai_key = 'key-goes-here'
+   ```
+4. Run the app
 
    ```
    $ streamlit run streamlit_app.py
