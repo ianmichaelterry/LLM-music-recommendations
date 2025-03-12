@@ -1,8 +1,8 @@
-# 💬 Chatbot template
+# LLM Music Recommendations
 
-A simple Streamlit app that shows how to build a chatbot using OpenAI's GPT-3.5.
+A Streamlit app to generate musical artist recommendations using LLM APIs
 
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://chatbot-template.streamlit.app/)
+[View the page here](https://llm-music-recs.streamlit.app/)
 
 ### How to run it on your own machine
 
