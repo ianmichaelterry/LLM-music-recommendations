@@ -1,5 +1,7 @@
 import streamlit as st
+import pandas as pd
 from openai import OpenAI
+import llm_music_utils
 
 # Show title and description.
 st.title("LLM Music Recommendations")
@@ -27,31 +29,48 @@ else:
     # Create a chat input field to allow the user to enter a message. This will display
     # automatically just under the description text.
     
-    prompt = st.text_input("Enter an artist's name, or more")
 
-    # Display the existing chat messages via `st.chat_message`.
-    for message in st.session_state.messages:
-        with st.chat_message(message["role"]):
-            st.markdown(message["content"])
 
-    if prompt:
-        # Store and display the current prompt.
-        st.session_state.messages.append({"role": "user", "content": prompt})
-        with st.chat_message("user"):
-            st.markdown(prompt)
+    user_input = st.text_input(label="", placeholder="Enter an artist's name, or more")
+    
+    if user_input:
+        response = llm_music_utils.get_three_chatgpt_recs(user_input, openai_api_key)
+        recommendations = response["recommendations"]
+        additional_notes = response["additional_notes"]
+        recommendations_df = pd.DataFrame(recommendations)
+        
+        for rec in recommendations:
+            with st.container():
+                col1, col2 = st.columns(2, border=True)
+                with col1:
+                    st.write(f"### {rec['artist']}")
+                with col2:
+                    st.write(rec['description'])    
+        
+        st.write(additional_notes)   
+    # # Display the existing chat messages via `st.chat_message`.
+    # for message in st.session_state.messages:
+    #     with st.chat_message(message["role"]):
+    #         st.markdown(message["content"])
 
-        # Generate a response using the OpenAI API.
-        stream = client.chat.completions.create(
-            model="gpt-3.5-turbo",
-            messages=[
-                {"role": m["role"], "content": m["content"]}
-                for m in st.session_state.messages
-            ],
-            stream=True,
-        )
+    # if prompt:
+    #     # Store and display the current prompt.
+    #     st.session_state.messages.append({"role": "user", "content": prompt})
+    #     with st.chat_message("user"):
+    #         st.markdown(prompt)
 
-        # Stream the response to the chat using `st.write_stream`, then store it in 
-        # session state.
-        with st.chat_message("assistant"):
-            response = st.write_stream(stream)
-        st.session_state.messages.append({"role": "assistant", "content": response})
+    #     # Generate a response using the OpenAI API.
+    #     stream = client.chat.completions.create(
+    #         model="gpt-3.5-turbo",
+    #         messages=[
+    #             {"role": m["role"], "content": m["content"]}
+    #             for m in st.session_state.messages
+    #         ],
+    #         stream=True,
+    #     )
+
+    #     # Stream the response to the chat using `st.write_stream`, then store it in 
+    #     # session state.
+    #     with st.chat_message("assistant"):
+    #         response = st.write_stream(stream)
+    #     st.session_state.messages.append({"role": "assistant", "content": response})
