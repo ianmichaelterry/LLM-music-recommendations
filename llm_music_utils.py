@@ -62,7 +62,7 @@ def get_three_chatgpt_recs(user_input: str, api_key: str) -> str:
 
 
 def main():
-    api_key = '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'
+    api_key = ''
     user_input = "I like the beatles but want something darker and heavier"
     response_text = get_three_chatgpt_recs(user_input, api_key)
     print(response_text)
