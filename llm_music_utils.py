@@ -141,9 +141,9 @@ def main():
     # user_input = "I like the beatles but want something darker and heavier"
     # response_text = get_three_chatgpt_recs(user_input, api_key)
     # print(response_text)
-    # Example usage:
-    client_id = "c4b88c3656de4ce5be30bd366208b89b"
-    client_secret = "7b32fcdc04d64402ab0920b65ca66bf3"
+    
+    client_id = "spotify id"
+    client_secret = "spotify secret"
     access_token = get_spotify_access_token(client_id, client_secret)
     print(access_token)  # Use this in your API calls
     related_artists = get_related_artists("Black Sabbath", access_token)
